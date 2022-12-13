@@ -43,6 +43,29 @@ function init() {
     scene.add(mesh);
   }
 
+  function handle_load_fbx(fbx, translation, rotation, scale) {
+    fbx.traverse(function (child) {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+    console.log(fbx)
+    fbx.scale.set(scale[0], scale[1], scale[2]);    
+    fbx.position.set(translation[0], translation[1], translation[2]);
+    fbx.rotation.set(rotation[0], rotation[1], rotation[2]);
+    fbx.castShadow = true;
+    fbx.receiveShadow = true;
+    scene.add(fbx);
+  }
+
+  // Instantiate an fbx loader
+  const fbxLoader = new FBXLoader();
+  fbxLoader.load('models/works.fbx',
+    function (object) {
+      handle_load_fbx(object, [0, 0, 0], [0, 0, 0], [0.01, 0.01, 0.01])
+    }
+  );
 
   // Instantiate a gltf loader
   const gltfLoader = new GLTFLoader();
