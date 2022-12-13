@@ -45,20 +45,29 @@ function init() {
     scene.add(mesh);
   }
 
-  // const ambientLight = new THREE.AmbientLight(0xffffff);
-  // scene.add(ambientLight);
+  function handle_load_fbx(fbx, translation, rotation, scale) {
+    fbx.traverse(function (child) {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+    console.log(fbx)
+    fbx.scale.set(scale[0], scale[1], scale[2]);    
+    fbx.position.set(translation[0], translation[1], translation[2]);
+    fbx.rotation.set(rotation[0], rotation[1], rotation[2]);
+    fbx.castShadow = true;
+    fbx.receiveShadow = true;
+    scene.add(fbx);
+  }
 
-  // const dirLight = new THREE.DirectionalLight(0xffffff);
-  // dirLight.position.set(7, 25, 7);
-  // dirLight.castShadow = true;
-  // dirLight.shadow.mapSize.width = 4096;
-  // dirLight.shadow.mapSize.height = 4096;
-  // dirLight.shadow.camera.far = 40;
-  // dirLight.shadow.camera.top = 10;
-  // dirLight.shadow.camera.bottom = - 10;
-  // dirLight.shadow.camera.left = - 10;
-  // dirLight.shadow.camera.right = 10;
-  // scene.add(dirLight);
+  // Instantiate an fbx loader
+  const fbxLoader = new FBXLoader();
+  fbxLoader.load('models/works.fbx',
+    function (object) {
+      handle_load_fbx(object, [0, 0, 0], [0, 0, 0], [0.01, 0.01, 0.01])
+    }
+  );
 
   // Instantiate a gltf loader
   const gltfLoader = new GLTFLoader();
