@@ -1,0 +1,455 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 1541,
+      "max": [
+        1.4114553928375244,
+        2.0422952175140381,
+        5.2006916999816895
+      ],
+      "min": [
+        -2.0478992462158203,
+        -1.9088677167892456,
+        0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 18492,
+      "componentType": 5126,
+      "count": 1541,
+      "max": [
+        0.99950909614562988,
+        0.99063187837600708,
+        0.99678444862365723
+      ],
+      "min": [
+        -0.99041378498077393,
+        -0.99143695831298828,
+        -0.99853056669235229
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 1541,
+      "max": [
+        0.54624736309051514,
+        0.74196386337280273
+      ],
+      "min": [
+        0.067614972591400146,
+        0.26060944795608521
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 2196,
+      "max": [
+        1540
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 36984,
+      "componentType": 5126,
+      "count": 3615,
+      "max": [
+        1.174538254737854,
+        1.612797737121582,
+        3.790809154510498
+      ],
+      "min": [
+        -1.6434412002563477,
+        -1.556606650352478,
+        2.1911771297454834
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 80364,
+      "componentType": 5126,
+      "count": 3615,
+      "max": [
+        0.99895352125167847,
+        0.98754191398620605,
+        0.99970901012420654
+      ],
+      "min": [
+        -0.99944734573364258,
+        -0.98926258087158203,
+        -0.9996219277381897
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 12328,
+      "componentType": 5126,
+      "count": 3615,
+      "max": [
+        0.30009591579437256,
+        0.92180138826370239
+      ],
+      "min": [
+        0.14417269825935364,
+        0.70561766624450684
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 8784,
+      "componentType": 5125,
+      "count": 5400,
+      "max": [
+        3614
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "xisoka45 (https://sketchfab.com/xisoka45)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/apple-tree-low-poly-3d-model-956713eaab454decb4081fa38dfdb84b",
+      "title": "Apple tree Low-poly 3D model"
+    },
+    "generator": "Sketchfab-8.34.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 30384,
+      "byteOffset": 0,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 41248,
+      "byteOffset": 30384,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 123744,
+      "byteOffset": 71632,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 195376,
+      "uri": "scene.bin"
+    }
+  ],
+  "images": [
+    {
+      "uri": "textures/MaterialAppleTree.001_baseColor.jpeg"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "name": "MaterialAppleTree.001",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "baseColorTexture": {
+          "index": 0,
+          "texCoord": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.82111456180001685
+      }
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "name": "MaterialApple.001",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "baseColorTexture": {
+          "index": 0,
+          "texCoord": 0
+        },
+        "metallicFactor": 0,
+        "roughnessFactor": 0.82111456180001685
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "AppleTree_MaterialAppleTree.001_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "AppleTree_MaterialApple.001_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 5,
+            "POSITION": 4,
+            "TEXCOORD_0": 6
+          },
+          "indices": 7,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "name": "RootNode (gltf orientation matrix)",
+      "rotation": [
+        -0.70710678118654746,
+        -0,
+        -0,
+        0.70710678118654757
+      ]
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        0.0083333337679505348,
+        0,
+        0,
+        0,
+        0,
+        0.0083333337679505348,
+        1.340102255689883e-18,
+        0,
+        0,
+        -1.340102255689883e-18,
+        0.0083333337679505348,
+        0,
+        14.379319190979004,
+        1.5968480110168457,
+        -1.6292243572024745e-06,
+        1
+      ],
+      "name": "RootNode (model correction matrix)"
+    },
+    {
+      "children": [
+        3
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "name": "SceneRender.fbx"
+    },
+    {
+      "children": [
+        4,
+        7,
+        9
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        5
+      ],
+      "matrix": [
+        -29.08647719990347,
+        -5.5189064575668629,
+        -95.517119101714371,
+        0,
+        56.639309131094492,
+        79.467234285632031,
+        -21.839123978419661,
+        0,
+        77.110087759933748,
+        -60.452463565620441,
+        -19.988346967737169,
+        0,
+        407.62454223632812,
+        590.38623046875,
+        -100.54539489746094,
+        1
+      ],
+      "name": "Light"
+    },
+    {
+      "children": [
+        6
+      ],
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        2.2204460492503131e-16,
+        1,
+        0,
+        0,
+        -1,
+        2.2204460492503131e-16,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "name": ""
+    },
+    {
+      "name": ""
+    },
+    {
+      "children": [
+        8
+      ],
+      "matrix": [
+        -92.198820828611744,
+        -9.8270421881550636,
+        -37.454060923293412,
+        0,
+        -9.1044087740573314,
+        99.515982399483278,
+        -3.6987178615793557,
+        0,
+        37.636248369576769,
+        -0.00020344519678326678,
+        -92.647249331116925,
+        0,
+        1082.4151611328125,
+        315.84085083007812,
+        488.34133911132812,
+        1
+      ],
+      "name": "Camera"
+    },
+    {
+      "name": ""
+    },
+    {
+      "children": [
+        10,
+        11
+      ],
+      "matrix": [
+        84.747501093917748,
+        -2.5103350286350985e-15,
+        31.591798328903096,
+        0,
+        31.591798328903064,
+        -3.9534483141445231e-06,
+        -84.747501093917677,
+        0,
+        1.3809211866357238e-06,
+        90.444335937499915,
+        -3.7044304472392577e-06,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "name": "AppleTree"
+    },
+    {
+      "mesh": 0,
+      "name": "AppleTree_MaterialAppleTree.001_0"
+    },
+    {
+      "mesh": 1,
+      "name": "AppleTree_MaterialApple.001_0"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "OSG_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    }
+  ]
+}
