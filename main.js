@@ -5,7 +5,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-let camera, scene, renderer, controls;
+let camera, scene, renderer, controls, mesh;
 
 init();
 animate();
@@ -28,23 +28,21 @@ function init() {
   hemiLight.position.set(0, 20, 0);
   scene.add(hemiLight);
 
-  function handle_load(gltf, child_idx, translation, rotation, scale, mesh) {
-      console.log(gltf);
-      if (child_idx != -1) {
-        mesh = gltf.scene.children[child_idx];
-      } else {
-        mesh = gltf.scene;
-      }
+  function handle_load_gltf(gltf, child_idx, translation, rotation, scale, mesh) {
+    console.log(gltf);
+    if (child_idx != -1) {
+      mesh = gltf.scene.children[child_idx];
+    } else {
+      mesh = gltf.scene;
+    }
+    mesh.scale.set(scale[0], scale[1], scale[2]);    
       mesh.scale.set(scale[0], scale[1], scale[2]);    
-      mesh.position.x = translation[0];
-      mesh.position.y = translation[1];
-      mesh.position.z = translation[2];
-      mesh.rotation.x = rotation[0];
-      mesh.rotation.y = rotation[1];
-      mesh.rotation.z = rotation[2];
-      mesh.castShadow = true;
-      mesh.receiveShadow = true;
-      scene.add( mesh );
+    mesh.scale.set(scale[0], scale[1], scale[2]);    
+    mesh.position.set(translation[0], translation[1], translation[2]);
+    mesh.rotation.set(rotation[0], rotation[1], rotation[2]);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    scene.add(mesh);
   }
 
   // const ambientLight = new THREE.AmbientLight(0xffffff);
@@ -62,68 +60,23 @@ function init() {
   // dirLight.shadow.camera.right = 10;
   // scene.add(dirLight);
 
-  // model
-  // const loader = new FBXLoader();
-  // loader.load('models/works.fbx', function (object) {
-
-  //   object.traverse(function (child) {
-  //     if (child.isMesh) {
-  //       child.castShadow = true;
-  //       child.receiveShadow = true;
-  //     }
-  //   });
-  //   console.log(object)
-  //   object.scale.set(0.001, 0.001, 0.001);
-  //   scene.add(object)
-  // }
-  // );
-
-  // Instantiate a loader
-  const loader = new GLTFLoader();
-  let mesh;
-  // Load a glTF resource
-  loader.load(
-    // resource URL
-    'models/trees/small_trees.glb', 
-    // called when the resource is loaded
-    function ( gltf ) {
-      handle_load(gltf, -1, [0, 0, 0], [0, 0, 0], [1, 1, 1], mesh)
-    },
-    // called while loading is progressing
-    function ( xhr ) {
-
-      console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
+  // Instantiate a gltf loader
+  const gltfLoader = new GLTFLoader();
+  gltfLoader.load('models/trees/small_trees.glb',
+    function (gltf) {
+      handle_load_gltf(gltf, -1, [0, 0, 0], [0, 0, 0], [1, 1, 1], mesh)
     },
   );
 
-  loader.load(
-    // resource URL
-    'models/trees/small_trees.glb',
-    // called when the resource is loaded
-    function ( gltf ) {
-      handle_load(gltf, -1, [6, 0, 0], [0, 0, 0], [1, 1, 1], mesh)
-    },
-    // called while loading is progressing
-    function ( xhr ) {
-
-      console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
+  gltfLoader.load('models/trees/small_trees.glb',
+    function (gltf) {
+      handle_load_gltf(gltf, -1, [6, 0, 0], [0, 0, 0], [1, 1, 1], mesh)
     },
   );
 
-  loader.load(
-    // resource URL
-    'models/trees/small_trees.glb',
-    // called when the resource is loaded
-    function ( gltf ) {
-      handle_load(gltf, 0, [6, 0, 4], [0, 1, 0], [1, 1, 1], mesh)
-    },
-    // called while loading is progressing
-    function ( xhr ) {
-
-      console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
-
+  gltfLoader.load('models/trees/small_trees.glb',
+    function (gltf) {
+      handle_load_gltf(gltf, 0, [6, 0, 4], [0, 1, 0], [1, 1, 1], mesh)
     },
   );
 
