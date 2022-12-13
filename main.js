@@ -36,8 +36,6 @@ function init() {
       mesh = gltf.scene;
     }
     mesh.scale.set(scale[0], scale[1], scale[2]);    
-      mesh.scale.set(scale[0], scale[1], scale[2]);    
-    mesh.scale.set(scale[0], scale[1], scale[2]);    
     mesh.position.set(translation[0], translation[1], translation[2]);
     mesh.rotation.set(rotation[0], rotation[1], rotation[2]);
     mesh.castShadow = true;
@@ -45,29 +43,6 @@ function init() {
     scene.add(mesh);
   }
 
-  function handle_load_fbx(fbx, translation, rotation, scale) {
-    fbx.traverse(function (child) {
-      if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-      }
-    });
-    console.log(fbx)
-    fbx.scale.set(scale[0], scale[1], scale[2]);    
-    fbx.position.set(translation[0], translation[1], translation[2]);
-    fbx.rotation.set(rotation[0], rotation[1], rotation[2]);
-    fbx.castShadow = true;
-    fbx.receiveShadow = true;
-    scene.add(fbx);
-  }
-
-  // Instantiate an fbx loader
-  const fbxLoader = new FBXLoader();
-  fbxLoader.load('models/works.fbx',
-    function (object) {
-      handle_load_fbx(object, [0, 0, 0], [0, 0, 0], [0.01, 0.01, 0.01])
-    }
-  );
 
   // Instantiate a gltf loader
   const gltfLoader = new GLTFLoader();
@@ -104,44 +79,15 @@ function init() {
 }
 
 function onWindowResize() {
-
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
 
   renderer.setSize(window.innerWidth, window.innerHeight);
-
 }
 
 function animate() {
 
   requestAnimationFrame(animate);
-
-  // const delta = clock.getDelta();
-
-  // Object.values(mixers).forEach(mixer => {
-  //   mixer.update(delta);
-  // });
-
-  // checkDistance();
-
-  // Object.keys(humanObjects).forEach(name => {
-  //   // console.log(coordinates[name])
-  //   if (coordinates[name] && coordinates[name].x.length > humanObjects[name].counter) {
-  //     animations[name]['idle'].action.stop();
-  //     animations[name]['walking'].action.play();
-  //     moveHumanToTarget(name, coordinates[name].x[humanObjects[name].counter], coordinates[name].y[humanObjects[name].counter], 0.017);
-  //   } else {
-  //     animations[name]['walking'].action.stop();
-  //     animations[name]['idle'].action.play();
-  //   }
-  // })
-
-  // if (humanObjectFollowed) {
-  //   setDiamondVisibility(true);
-  //   focusCamera(humanObjectFollowed);
-  // } else {
-  //   setDiamondVisibility(false);
-  // }
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.render(scene, camera);
 
