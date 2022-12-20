@@ -85,169 +85,17 @@ function init() {
       }
     });
     console.log(fbx)
-    for (let i = 0; i < 20; i++) {
-      fbx.position.set(translation[0] + (i+1) * 0.2, translation[1], translation[2]);
-      fbx.scale.set(scale[0], scale[1], scale[2]);    
-      fbx.rotation.set(rotation[0], rotation[1], rotation[2]);
-      fbx.castShadow = true;
-      fbx.receiveShadow = true;
-      fbx.name = name;
-      scene.add(fbx);
-      console.log(fbx)
-      console.log(scene)
-      
-    }
+    fbx.position.set(translation[0], translation[1], translation[2]);
+    fbx.scale.set(scale[0], scale[1], scale[2]);    
+    fbx.rotation.set(rotation[0], rotation[1], rotation[2]);
+    fbx.castShadow = true;
+    fbx.receiveShadow = true;
+    fbx.name = name;
+    scene.add(fbx);
   }
 
   // Instantiate an fbx loader
   const fbxLoader = new FBXLoader(manager);
-  // handle_load_fences(10, [-2.5, 0, 2.2], [0.2, 0, 0]);
-  fbxLoader.load('models/properties/wall/models/wall.fbx',
-    function (object) {
-      objNames.push('car1');
-      handle_load_fbx(object, [-2.5, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02], 'car1')  ;
-    }
-  );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [-2.3, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [-2.1, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [-1.9, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [-1.7, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [-1.5, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [-1.3, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [-1.1, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [-0.9, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [-0.7, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [-0.5, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [-0.3, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [-0.1, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [0.1, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [0.3, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [0.5, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [0.7, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [0.9, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [1.1, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [1.3, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [1.5, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [1.7, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [1.9, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [2.1, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [2.3, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [2.5, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [2.7, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [2.9, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
-  // fbxLoader.load('models/properties/wall/models/wall.fbx',
-  //   function (object) {
-  //     handle_load_fbx(object, [3.1, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
-  //   }
-  // );
 
   // Instantiate a gltf loader
   const gltfLoader = new GLTFLoader(manager);
@@ -261,6 +109,12 @@ function init() {
   gltfLoader.load('models/buildings/KantinTC.gltf',
     function (gltf) {
       handle_load_gltf(gltf, -1, [2.3, -0.05, -0.4], [0, 0, 0], [0.007, 0.007, 0.007], mesh)
+    },
+  );
+
+  gltfLoader.load('models/buildings/ParkiranMobilDosen.gltf',
+    function (gltf) {
+      handle_load_gltf(gltf, -1, [2, 0, -0.1], [0, 0, 0], [0.007, 0.007, 0.007], mesh)
     },
   );
 
@@ -336,33 +190,15 @@ function init() {
     },
   );
 
-  gltfLoader.load('models/properties/stone_fence.glb',
-    function (gltf) {
-      handle_load_gltf(gltf, -1, [10, 0, 0], [0, 1, 0], [0.5, 0.5, 0.5], mesh)
-    },
-  );
-
   gltfLoader.load('models/properties/fountain.glb',
     function (gltf) {
       handle_load_gltf(gltf, -1, [-2.6, 0.08, 1.2], [0, 0, 0], [0.1, 0.1, 0.1], mesh)
     },
   );
 
-  // gltfLoader.load('models/trees/simple_tree.glb',
-  //   function (gltf) {
-  //     handle_load_gltf(gltf, -1, [-2.6, 0.08, 1.2], [0, 0, 0], [0.1, 0.1, 0.1], mesh)
-  //   },
-  // );
-
   gltfLoader.load('models/properties/PapanTCgerbang.gltf',
     function (gltf) {
-      handle_load_gltf(gltf, -1, [-3.1, 0, 1.2], [0, 0.3, 0], [0.007, 0.007, 0.007], mesh)
-    },
-  );
-
-  gltfLoader.load('models/trees/simple_tree.glb',
-    function (gltf) {
-      handle_load_gltf(gltf, -1, [-1.7, 0.16, 0], [0, 1.57, 0], [0.2, 0.2, 0.2], mesh)
+      handle_load_gltf(gltf, -1, [-3.1, 0, 1.3], [0, 0.3, 0], [0.007, 0.007, 0.007], mesh)
     },
   );
 
@@ -430,28 +266,28 @@ function init() {
 
   gltfLoader.load('models/properties/garden.glb',
     function (gltf) {
-      handle_load_gltf(gltf, -1, [-2.35, 0, 0.1], [0, 0, 0], [0.01, 0.01, 0.01], mesh)
+      handle_load_gltf(gltf, -1, [-2.35, 0, 0.1], [0, 0, 0], [0.005, 0.005, 0.005], mesh)
     },
   );
   gltfLoader.load('models/properties/garden.glb',
     function (gltf) {
-      handle_load_gltf(gltf, -1, [-2.35, 0, -0.2], [0, 0, 0], [0.01, 0.01, 0.01], mesh)
+      handle_load_gltf(gltf, -1, [-2.35, 0, -0.2], [0, 0, 0], [0.005, 0.005, 0.005], mesh)
     },
   );
   gltfLoader.load('models/properties/garden.glb',
     function (gltf) {
-      handle_load_gltf(gltf, -1, [-2.35, 0, -0.5], [0, 0, 0], [0.01, 0.01, 0.01], mesh)
+      handle_load_gltf(gltf, -1, [-2.35, 0, -0.5], [0, 0, 0], [0.005, 0.005, 0.005], mesh)
     },
   );
   gltfLoader.load('models/properties/garden.glb',
     function (gltf) {
-      handle_load_gltf(gltf, -1, [-2.35, 0, -0.8], [0, 0, 0], [0.01, 0.01, 0.01], mesh)
+      handle_load_gltf(gltf, -1, [-2.35, 0, -0.8], [0, 0, 0], [0.005, 0.005, 0.005], mesh)
     },
   );
   gltfLoader.load('models/properties/garden.glb',
     function (gltf) {
       objNames.push('garden');
-      handle_load_gltf(gltf, -1, [-2.35, 0, -1.1], [0, 0, 0], [0.01, 0.01, 0.01], mesh, 'garden')
+      handle_load_gltf(gltf, -1, [-2.35, 0, -1.1], [0, 0, 0], [0.005, 0.005, 0.005], mesh, 'garden')
     },
   );
 
@@ -459,6 +295,94 @@ function init() {
     function (gltf) {
       objNames.push('small_tree');
       handle_load_gltf(gltf, -1, [-0.8, 0, -2], [0, 0, 0], [0.15, 0.15, 0.15], mesh, 'small_tree')
+    },
+  );
+
+  gltfLoader.load('models/trees/small_trees.glb',
+    function (gltf) {
+      objNames.push('small_tree');
+      handle_load_gltf(gltf, -1, [-3, 0, 0], [0, 1.57, 0], [0.15, 0.15, 0.15], mesh, 'small_tree')
+    },
+  );
+
+  gltfLoader.load('models/trees/small_trees.glb',
+    function (gltf) {
+      objNames.push('small_tree');
+      handle_load_gltf(gltf, -1, [-3, 0, -0.9], [0, 1.57, 0], [0.15, 0.15, 0.15], mesh, 'small_tree')
+    },
+  );
+
+  gltfLoader.load('models/trees/small_trees.glb',
+    function (gltf) {
+      objNames.push('small_tree');
+      handle_load_gltf(gltf, -1, [-3, 0, 0.9], [0, 1.57, 0], [0.15, 0.15, 0.15], mesh, 'small_tree')
+    },
+  );
+
+  gltfLoader.load('models/vehicles/vespa.glb',
+    function (gltf) {
+      objNames.push('small_tree');
+      handle_load_gltf(gltf, -1, [3.1, 0.06, 0], [0, 1.57, 0], [0.02, 0.02, 0.02], mesh)
+    },
+  );
+
+  gltfLoader.load('models/vehicles/vespa.glb',
+    function (gltf) {
+      handle_load_gltf(gltf, -1, [3.1, 0.06, 0.2], [0, 1.57, 0], [0.02, 0.02, 0.02], mesh)
+    },
+  );
+
+  gltfLoader.load('models/vehicles/vespa.glb',
+    function (gltf) {
+      handle_load_gltf(gltf, -1, [3.1, 0.06, 0.4], [0, 1.57, 0], [0.02, 0.02, 0.02], mesh)
+    },
+  );
+
+  fbxLoader.load('models/vehicles/motodraft.fbx',
+    function (object) {
+      handle_load_fbx(object, [3.1, 0.06, -0.2], [0, -3.14, 0], [0.001, 0.001, 0.001])
+    },
+  );
+
+  fbxLoader.load('models/vehicles/car.fbx',
+    function (object) {
+      handle_load_fbx(object, [-1.65, 0.03, 0], [0, 0, 0], [0.0007, 0.0007, 0.0007])
+    },
+  );
+
+  gltfLoader.load('models/vehicles/honda_civic.glb',
+    function (gltf) {
+      handle_load_gltf(gltf, -1, [-1.65, 0, -0.4], [0, 1.9, 0], [0.02, 0.02, 0.02], mesh)
+    },
+  );
+
+  gltfLoader.load('models/vehicles/toyota.glb',
+    function (gltf) {
+      handle_load_gltf(gltf, -1, [-1.72, 0, -0.8], [0, 1.57, 0], [0.08, 0.08, 0.08], mesh)
+    },
+  );
+
+  fbxLoader.load('models/vehicles/car.fbx',
+    function (object) {
+      handle_load_fbx(object, [0.45, 0.04, 1.5], [0, 1.57, 0], [0.0007, 0.0007, 0.0007])
+    },
+  );
+
+  gltfLoader.load('models/vehicles/honda_civic.glb',
+    function (gltf) {
+      handle_load_gltf(gltf, -1, [0, 0, 1.5], [0, -2.8, 0], [0.02, 0.02, 0.02], mesh)
+    },
+  );
+
+  gltfLoader.load('models/properties/Pager.gltf',
+    function (gltf) {
+      handle_load_gltf(gltf, -1, [3, 0, -1.3], [0, 0, 0], [0.009, 0.009, 0.009], mesh)
+    },
+  );
+
+  gltfLoader.load('models/properties/Pager.gltf',
+    function (gltf) {
+      handle_load_gltf(gltf, -1, [0.2, 0, -2.8], [0, 1.57, 0], [0.008, 0.008, 0.008], mesh)
     },
   );
 
@@ -504,7 +428,6 @@ function waitReady(){
     requestAnimationFrame(waitReady);
   }
 }
-
 
 function animate(time) {
 
