@@ -4,41 +4,44 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import * as CTRL from './assets/js/control.js';
 import * as AN from './assets/js/animation.js';
+import * as OM from './assets/js/object_maker.js';
 
 
-let camera, scene, renderer, controls, mesh;
-let allready = 0, objNames = [];let keyboard = {};
-
+let camera, cameraLookAt, scene, renderer, controls, mesh;
+let allready = 0, objNames = [], keyboard = {};
+let keycb={
+    87: CTRL.moveCamUp,
+    83: CTRL.moveCamDown,
+    65: CTRL.moveCamLeft,
+    68: CTRL.moveCamRight,
+    81: CTRL.moveCamFront,
+    69: CTRL.moveCamBack, 
+};
 // animation coba coba
 let carAnimation = new AN.Animate([[5, 0, 0, 'position'], [10, 0, 10, 'position'], [0, 0, 0, 'position']], 0.05, 0.05); // harus posisi only
-var manager = new THREE.LoadingManager();
 
+
+let manager = new THREE.LoadingManager();
 init();
 manager.onLoad = function ( ) {
   console.log( 'Loading complete!');
   waitReady();
+
   animate();
 };
 
-function keyUp(event) {
-    keyboard[event.keyCode] = false;
-}
-  
-function keyDown(event) {
-    keyboard[event.keyCode] = true;
-}
-
 function init() {
   console.log('init');
-  window.addEventListener("keydown", keyDown);
-  window.addEventListener("keyup", keyUp);
 
   const container = document.createElement('div');
   document.body.appendChild(container);
 
   camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
   camera.position.set(10, 5, 1000);
+  cameraLookAt = new THREE.Vector3(0, 0, 0);
+  camera.lookAt(cameraLookAt);
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color( 0xbfe3dd );
@@ -59,6 +62,14 @@ function init() {
   const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
   hemiLight.position.set(0, 20, 0);
   scene.add(hemiLight);
+
+  const color = 0xFFFFFF;
+  const intensity = 1;
+  const light = new THREE.DirectionalLight(color, intensity);
+  light.position.set(0, 10, 10);
+  light.target.position.set(0, 0, 0);
+  scene.add(light);
+  scene.add(light.target);
 
   function handle_load_gltf(gltf, child_idx, translation, rotation, scale, mesh, name) {
     // console.log(gltf);
@@ -190,6 +201,7 @@ function init() {
     },
   );
 
+
   gltfLoader.load('models/properties/fountain.glb',
     function (gltf) {
       handle_load_gltf(gltf, -1, [-2.6, 0.08, 1.2], [0, 0, 0], [0.1, 0.1, 0.1], mesh)
@@ -298,6 +310,16 @@ function init() {
     },
   );
 
+
+  // atap with texture
+  let atap1 = OM.makeAtap(new THREE.Vector3(-1,1,0), Math.PI/2, new THREE.Vector3(8/24, 8/24, 8/24));
+  scene.add(atap1);
+  let atap2 = OM.makeAtap(new THREE.Vector3(-0.77,1,1.55), Math.PI/2, new THREE.Vector3(8/24, 8/24, 8/24));
+  atap2.rotateY(Math.PI/2);
+  scene.add(atap2);
+  let atap3 = OM.makeAtap(new THREE.Vector3(3.02,1.01,0), Math.PI/2, new THREE.Vector3(8/24, 8/24, 8/24));
+  scene.add(atap3);
+
   gltfLoader.load('models/trees/small_trees.glb',
     function (gltf) {
       objNames.push('small_tree');
@@ -398,13 +420,27 @@ function init() {
   controls.update();
 
   window.addEventListener('resize', onWindowResize, false);
+  window.addEventListener("keydown", keyDown);
+  window.addEventListener("keyup", keyUp);
+
 }
+
 
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
 
   renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+function keyUp(event) {
+  keyboard[event.keyCode] = false;
+  // console.log(event.keyCode);
+}
+
+function keyDown(event) {
+  keyboard[event.keyCode] = true;
+  // console.log(event.keyCode);
 }
 
 function waitReady(){
@@ -432,6 +468,8 @@ function waitReady(){
 function animate(time) {
 
   // carAnimation.do_wp(scene.getObjectByName('car1'));
+  // CTRL.handleUserInput(keycb, keyboard, camera, 0.1, keyboard[16], cameraLookAt, controls);
+  // controls.update();
 
   requestAnimationFrame(animate);
   renderer.outputEncoding = THREE.sRGBEncoding;
