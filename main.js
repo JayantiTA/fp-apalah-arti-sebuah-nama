@@ -4,41 +4,41 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import * as CTRL from './assets/js/control.js';
 import * as AN from './assets/js/animation.js';
 
 
-let camera, scene, renderer, controls, mesh;
-let allready = 0, objNames = [];let keyboard = {};
-
+let camera, cameraLookAt, scene, renderer, controls, mesh;
+let allready = 0, objNames = [], keyboard = {};
+let keycb={
+    87: CTRL.moveCamUp,
+    83: CTRL.moveCamDown,
+    65: CTRL.moveCamLeft,
+    68: CTRL.moveCamRight,
+    81: CTRL.moveCamFront,
+    69: CTRL.moveCamBack, 
+};
 // animation coba coba
 let carAnimation = new AN.Animate([[5, 0, 0, 'position'], [10, 0, 10, 'position'], [0, 0, 0, 'position']], 0.05, 0.05); // harus posisi only
-var manager = new THREE.LoadingManager();
 
+
+let manager = new THREE.LoadingManager();
 init();
 manager.onLoad = function ( ) {
   console.log( 'Loading complete!');
-  waitReady();
   animate();
 };
 
-function keyUp(event) {
-    keyboard[event.keyCode] = false;
-}
-  
-function keyDown(event) {
-    keyboard[event.keyCode] = true;
-}
-
 function init() {
   console.log('init');
-  window.addEventListener("keydown", keyDown);
-  window.addEventListener("keyup", keyUp);
 
   const container = document.createElement('div');
   document.body.appendChild(container);
 
   camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
   camera.position.set(10, 5, 1000);
+  cameraLookAt = new THREE.Vector3(0, 0, 0);
+  camera.lookAt(cameraLookAt);
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color( 0xbfe3dd );
@@ -474,6 +474,9 @@ function init() {
   controls.update();
 
   window.addEventListener('resize', onWindowResize, false);
+  window.addEventListener("keydown", keyDown);
+  window.addEventListener("keyup", keyUp);
+
 }
 
 function onWindowResize() {
@@ -483,32 +486,21 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-function waitReady(){
-  renderer.outputEncoding = THREE.sRGBEncoding;
-  renderer.render(scene, camera);
-
-  allready = -1;
-  for (let i = 0; i < objNames.length; i++) {
-    if (scene.getObjectByName(objNames[i])) {
-      allready++;
-      console.log('ready');
-    }else{
-      console.log('not ready');
-    }
-  }
-
-  if (allready == objNames.length -1 && allready != -1) {
-    console.log('allready');
-    return;
-  }else{
-    requestAnimationFrame(waitReady);
-  }
+function keyUp(event) {
+  keyboard[event.keyCode] = false;
+  // console.log(event.keyCode);
 }
 
+function keyDown(event) {
+  keyboard[event.keyCode] = true;
+  // console.log(event.keyCode);
+}
 
 function animate(time) {
 
   // carAnimation.do_wp(scene.getObjectByName('car1'));
+  // CTRL.handleUserInput(keycb, keyboard, camera, 0.1, keyboard[16], cameraLookAt, controls);
+  // controls.update();
 
   requestAnimationFrame(animate);
   renderer.outputEncoding = THREE.sRGBEncoding;
