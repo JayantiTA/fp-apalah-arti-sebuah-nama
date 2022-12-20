@@ -4,14 +4,26 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import * as AN from './assets/js/animation.js';
+
 
 let camera, scene, renderer, controls, mesh;
+let allready = 0, objNames = [];
+
+// animation
+let carAnimation = new AN.Animate([[5, 0, 0, 'position'], [10, 0, 10, 'position'], [0, 0, 0, 'position']], 0.05, 0.05); // harus posisi only
+var manager = new THREE.LoadingManager();
 
 init();
-animate();
+manager.onLoad = function ( ) {
+  console.log( 'Loading complete!');
+  waitReady();
+  animate();
+};
 
 
 function init() {
+  console.log('init');
 
   const container = document.createElement('div');
   document.body.appendChild(container);
@@ -39,7 +51,8 @@ function init() {
   hemiLight.position.set(0, 20, 0);
   scene.add(hemiLight);
 
-  function handle_load_gltf(gltf, child_idx, translation, rotation, scale, mesh) {
+  function handle_load_gltf(gltf, child_idx, translation, rotation, scale, mesh, name) {
+    // console.log(gltf);
     if (child_idx != -1) {
       mesh = gltf.scene.children[child_idx];
     } else {
@@ -50,10 +63,12 @@ function init() {
     mesh.rotation.set(rotation[0], rotation[1], rotation[2]);
     mesh.castShadow = true;
     mesh.receiveShadow = true;
+    mesh.name = name;
     scene.add(mesh);
+
   }
 
-  function handle_load_fbx(fbx, translation, rotation, scale) {
+  function handle_load_fbx(fbx, translation, rotation, scale, name) {
     fbx.traverse(function (child) {
       if (child.isMesh) {
         child.castShadow = true;
@@ -67,18 +82,21 @@ function init() {
       fbx.rotation.set(rotation[0], rotation[1], rotation[2]);
       fbx.castShadow = true;
       fbx.receiveShadow = true;
+      fbx.name = name;
       scene.add(fbx);
       console.log(fbx)
       console.log(scene)
+      
     }
   }
 
   // Instantiate an fbx loader
-  const fbxLoader = new FBXLoader();
+  const fbxLoader = new FBXLoader(manager);
   // handle_load_fences(10, [-2.5, 0, 2.2], [0.2, 0, 0]);
   fbxLoader.load('models/properties/wall/models/wall.fbx',
     function (object) {
-      handle_load_fbx(object, [-2.5, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02])
+      objNames.push('car1');
+      handle_load_fbx(object, [-2.5, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02], 'car'1);
     }
   );
   // fbxLoader.load('models/properties/wall/models/wall.fbx',
@@ -223,10 +241,11 @@ function init() {
   // );
 
   // Instantiate a gltf loader
-  const gltfLoader = new GLTFLoader();
+  const gltfLoader = new GLTFLoader(manager);
   gltfLoader.load('models/buildings/GedungTC.gltf',
     function (gltf) {
-      handle_load_gltf(gltf, -1, [2, 0, 0], [0, 0, 0], [0.007, 0.007, 0.007], mesh)
+      objNames.push('GedungTC');
+      handle_load_gltf(gltf, -1, [2, 0, 0], [0, 0, 0], [0.007, 0.007, 0.007], mesh, 'GedungTC')
     },
   );
 
@@ -422,13 +441,15 @@ function init() {
   );
   gltfLoader.load('models/properties/garden.glb',
     function (gltf) {
-      handle_load_gltf(gltf, -1, [-2.35, 0, -1.1], [0, 0, 0], [0.01, 0.01, 0.01], mesh)
+      objNames.push('garden');
+      handle_load_gltf(gltf, -1, [-2.35, 0, -1.1], [0, 0, 0], [0.01, 0.01, 0.01], mesh, 'garden')
     },
   );
 
   gltfLoader.load('models/trees/small_trees.glb',
     function (gltf) {
-      handle_load_gltf(gltf, -1, [-0.8, 0, -2], [0, 0, 0], [0.15, 0.15, 0.15], mesh)
+      objNames.push('small_tree3');
+      handle_load_gltf(gltf, -1, [-0.8, 0, -2], [0, 0, 0], [0.15, 0.15, 0.15], mesh, 'small_tree3)
     },
   );
 
@@ -453,7 +474,32 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-function animate() {
+function waitReady(){
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.render(scene, camera);
+
+  allready = -1;
+  for (let i = 0; i < objNames.length; i++) {
+    if (scene.getObjectByName(objNames[i])) {
+      allready++;
+      console.log('ready');
+    }else{
+      console.log('not ready');
+    }
+  }
+
+  if (allready == objNames.length -1 && allready != -1) {
+    console.log('allready');
+    return;
+  }else{
+    requestAnimationFrame(waitReady);
+  }
+}
+
+
+function animate(time) {
+
+  carAnimation.do_wp(scene.getObjectByName('car1'));
 
   requestAnimationFrame(animate);
   renderer.outputEncoding = THREE.sRGBEncoding;
