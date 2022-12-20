@@ -26,6 +26,8 @@ let manager = new THREE.LoadingManager();
 init();
 manager.onLoad = function ( ) {
   console.log( 'Loading complete!');
+  waitReady();
+
   animate();
 };
 
@@ -59,6 +61,14 @@ function init() {
   const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444);
   hemiLight.position.set(0, 20, 0);
   scene.add(hemiLight);
+
+  const color = 0xFFFFFF;
+  const intensity = 1;
+  const light = new THREE.DirectionalLight(color, intensity);
+  light.position.set(0, 10, 10);
+  light.target.position.set(0, 0, 0);
+  scene.add(light);
+  scene.add(light.target);
 
   function handle_load_gltf(gltf, child_idx, translation, rotation, scale, mesh, name) {
     // console.log(gltf);
@@ -104,8 +114,8 @@ function init() {
   // handle_load_fences(10, [-2.5, 0, 2.2], [0.2, 0, 0]);
   fbxLoader.load('models/properties/wall/models/wall.fbx',
     function (object) {
-      objNames.push('car1');
-      handle_load_fbx(object, [-2.5, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02], 'car1')  ;
+      objNames.push('wall');
+      handle_load_fbx(object, [-2.5, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02], 'wall')  ;
     }
   );
   // fbxLoader.load('models/properties/wall/models/wall.fbx',
@@ -338,10 +348,10 @@ function init() {
 
   gltfLoader.load('models/properties/stone_fence.glb',
     function (gltf) {
-      handle_load_gltf(gltf, -1, [10, 0, 0], [0, 1, 0], [0.5, 0.5, 0.5], mesh)
+      handle_load_gltf(gltf, -1, [10, 0, 0], [0, 1, 0], [0.5, 0.5, 0.5], mesh, 'fence');
     },
   );
-
+  
   gltfLoader.load('models/properties/fountain.glb',
     function (gltf) {
       handle_load_gltf(gltf, -1, [-2.6, 0.08, 1.2], [0, 0, 0], [0.1, 0.1, 0.1], mesh)
@@ -479,6 +489,7 @@ function init() {
 
 }
 
+
 function onWindowResize() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
@@ -494,6 +505,28 @@ function keyUp(event) {
 function keyDown(event) {
   keyboard[event.keyCode] = true;
   // console.log(event.keyCode);
+}
+
+function waitReady(){
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.render(scene, camera);
+
+  allready = -1;
+  for (let i = 0; i < objNames.length; i++) {
+    if (scene.getObjectByName(objNames[i])) {
+      allready++;
+      console.log('ready');
+    }else{
+      console.log('not ready');
+    }
+  }
+
+  if (allready == objNames.length -1 && allready != -1) {
+    console.log('allready');
+    return;
+  }else{
+    requestAnimationFrame(waitReady);
+  }
 }
 
 function animate(time) {
