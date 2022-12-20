@@ -8,9 +8,9 @@ import * as AN from './assets/js/animation.js';
 
 
 let camera, scene, renderer, controls, mesh;
-let allready = 0, objNames = [];
+let allready = 0, objNames = [];let keyboard = {};
 
-// animation
+// animation coba coba
 let carAnimation = new AN.Animate([[5, 0, 0, 'position'], [10, 0, 10, 'position'], [0, 0, 0, 'position']], 0.05, 0.05); // harus posisi only
 var manager = new THREE.LoadingManager();
 
@@ -21,9 +21,18 @@ manager.onLoad = function ( ) {
   animate();
 };
 
+function keyUp(event) {
+    keyboard[event.keyCode] = false;
+}
+  
+function keyDown(event) {
+    keyboard[event.keyCode] = true;
+}
 
 function init() {
   console.log('init');
+  window.addEventListener("keydown", keyDown);
+  window.addEventListener("keyup", keyUp);
 
   const container = document.createElement('div');
   document.body.appendChild(container);
@@ -96,7 +105,7 @@ function init() {
   fbxLoader.load('models/properties/wall/models/wall.fbx',
     function (object) {
       objNames.push('car1');
-      handle_load_fbx(object, [-2.5, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02], 'car'1);
+      handle_load_fbx(object, [-2.5, 0, 2.2], [0, 0, 0], [0.02, 0.02, 0.02], 'car1')  ;
     }
   );
   // fbxLoader.load('models/properties/wall/models/wall.fbx',
@@ -448,8 +457,8 @@ function init() {
 
   gltfLoader.load('models/trees/small_trees.glb',
     function (gltf) {
-      objNames.push('small_tree3');
-      handle_load_gltf(gltf, -1, [-0.8, 0, -2], [0, 0, 0], [0.15, 0.15, 0.15], mesh, 'small_tree3)
+      objNames.push('small_tree');
+      handle_load_gltf(gltf, -1, [-0.8, 0, -2], [0, 0, 0], [0.15, 0.15, 0.15], mesh, 'small_tree')
     },
   );
 
@@ -499,7 +508,7 @@ function waitReady(){
 
 function animate(time) {
 
-  carAnimation.do_wp(scene.getObjectByName('car1'));
+  // carAnimation.do_wp(scene.getObjectByName('car1'));
 
   requestAnimationFrame(animate);
   renderer.outputEncoding = THREE.sRGBEncoding;
