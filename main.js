@@ -6,6 +6,7 @@ import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import * as CTRL from './assets/js/control.js';
 import * as AN from './assets/js/animation.js';
+import * as OM from './assets/js/object_maker.js';
 
 
 let camera, cameraLookAt, scene, renderer, controls, mesh;
@@ -471,6 +472,15 @@ function init() {
       handle_load_gltf(gltf, -1, [-0.8, 0, -2], [0, 0, 0], [0.15, 0.15, 0.15], mesh, 'small_tree')
     },
   );
+
+  // atap with texture
+  let atap1 = OM.makeAtap(new THREE.Vector3(-1,1,0), Math.PI/2, new THREE.Vector3(8/24, 8/24, 8/24));
+  scene.add(atap1);
+  let atap2 = OM.makeAtap(new THREE.Vector3(-0.77,1,1.55), Math.PI/2, new THREE.Vector3(8/24, 8/24, 8/24));
+  atap2.rotateY(Math.PI/2);
+  scene.add(atap2);
+  let atap3 = OM.makeAtap(new THREE.Vector3(3.02,1.01,0), Math.PI/2, new THREE.Vector3(8/24, 8/24, 8/24));
+  scene.add(atap3);
 
   renderer = new THREE.WebGLRenderer();
   renderer.setPixelRatio(window.devicePixelRatio);
