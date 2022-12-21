@@ -28,6 +28,16 @@
     <div id="textbutton">
       <h4>ON/OFF FOG</h4>
     </div>
+
+    <!-- Rounded switch -->
+    <label class="switch" id="button2">
+      <input type="checkbox" id="audiotoggle">
+      <span class="slider round"></span>
+    </label>
+    <div id="textbutton2">
+      <h4>ON/OFF AUDIO</h4>
+    </div>
+
   </div>
 
   <audio id="myAudio">
@@ -42,7 +52,14 @@
       x.play(); 
     } 
     
-    playAudio();
+    let toggler = document.getElementById("audiotoggle");
+    toggler.addEventListener("change", function() {
+      if (toggler.checked) {
+        playAudio();
+      } else {
+        x.pause();
+      }
+    });
     </script>
 
   <script src="assets/js/animation.js" type="module"></script>
