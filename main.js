@@ -38,10 +38,10 @@ function init() {
   const container = document.createElement('div');
   document.body.appendChild(container);
 
-  camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
+  camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10);
   camera.position.set(10, 5, 1000);
   cameraLookAt = new THREE.Vector3(0, 0, 0);
-  camera.lookAt(cameraLookAt);
+  camera.lookAt(cameraLookAt.x, cameraLookAt.y, cameraLookAt.z);
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color( 0xbfe3dd );
@@ -51,6 +51,7 @@ function init() {
   const plane = new THREE.Mesh( geometry, material );
   plane.rotation.set(1.57, 0, 0);
   plane.position.set(0, 0, 0);
+  plane.receiveShadow = true;
   scene.add( plane );
 
   const geometry2 = new THREE.BoxGeometry( 2.62, 0.05, 0.7 );
@@ -64,12 +65,22 @@ function init() {
   scene.add(hemiLight);
 
   const color = 0xFFFFFF;
-  const intensity = 1;
-  const light = new THREE.DirectionalLight(color, intensity);
-  light.position.set(0, 10, 10);
-  light.target.position.set(0, 0, 0);
-  scene.add(light);
-  scene.add(light.target);
+  const intensity = 0.8;
+  let dirLight = new THREE.DirectionalLight( color, intensity );
+  dirLight.position.set( 0, 10, 10 );
+  dirLight.castShadow = true;
+  dirLight.shadow.camera.top = 0.2;
+  dirLight.shadow.camera.bottom = - 0.2;
+  dirLight.shadow.camera.left = - 0.2;
+  dirLight.shadow.camera.right = 0.2;
+  dirLight.shadow.camera.near = 0.1;
+  dirLight.shadow.camera.far = 2;
+  dirLight.shadow.mapSize.set( 1024, 1024 );
+  dirLight.target.position.set(0, 0, 0);
+  scene.add( dirLight );
+  scene.add(dirLight.target);
+
+  scene.add( new THREE.CameraHelper( dirLight.shadow.camera ) );
 
   function handle_load_gltf(gltf, child_idx, translation, rotation, scale, mesh, name) {
     // console.log(gltf);
@@ -78,6 +89,19 @@ function init() {
     } else {
       mesh = gltf.scene;
     }
+
+    // mesh.traverse( function ( node ) {
+
+    //   if ( node.isMesh ) {
+
+    //     node.castShadow = true;
+    //     node.receiveShadow = true;
+    //     node.material.metalness = 0; // undo this change if you apply an env map
+
+    //   }
+
+    // } );
+
     mesh.scale.set(scale[0], scale[1], scale[2]);    
     mesh.position.set(translation[0], translation[1], translation[2]);
     mesh.rotation.set(rotation[0], rotation[1], rotation[2]);
@@ -412,6 +436,7 @@ function init() {
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.shadowMap.enabled = true;
+  renderer.outputEncoding = THREE.sRGBEncoding;
   container.appendChild(renderer.domElement);
 
   controls = new OrbitControls(camera, renderer.domElement);
@@ -444,7 +469,7 @@ function keyDown(event) {
 }
 
 function waitReady(){
-  renderer.outputEncoding = THREE.sRGBEncoding;
+  // renderer.outputEncoding = THREE.sRGBEncoding;  
   renderer.render(scene, camera);
 
   allready = -1;
@@ -472,7 +497,7 @@ function animate(time) {
   // controls.update();
 
   requestAnimationFrame(animate);
-  renderer.outputEncoding = THREE.sRGBEncoding;
+  // renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.render(scene, camera);
 
 }
