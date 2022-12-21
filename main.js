@@ -30,7 +30,8 @@ init();
 manager.onLoad = function ( ) {
   console.log( 'Loading complete!');
   waitReady();
-
+  let msg = document.getElementById('msg');
+  msg.textContent='';
   animate();
 };
 

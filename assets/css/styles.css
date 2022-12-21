@@ -101,9 +101,15 @@ top:10%
   left:10%;
   top:20%
   }
-  #textbutton2{
-      position: absolute;
-      left: 23%;
-      top: 22%;
-      color: black;
-  }
+#textbutton2{
+    position: absolute;
+    left: 23%;
+    top: 22%;
+    color: black;
+}
+
+#msg{
+  position: absolute;
+  left: 10%;
+  top: 30%;
+}
