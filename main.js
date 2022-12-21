@@ -12,7 +12,7 @@ import * as OM from './assets/js/object_maker.js';
 
 
 let camera, cameraLookAt, scene, renderer, controls, mesh;
-let allready = 0, objNames = [], keyboard = {};
+let allready = 0, objNames = [], keyboard = {}, animatedObjects = [];
 let keycb={
     87: CTRL.moveCamUp,
     83: CTRL.moveCamDown,
@@ -433,23 +433,27 @@ function init() {
   circle.rotation.set(0, -0.77, 0);
   circle.name = "third_floor";
   scene.add( circle );
+  animatedObjects.push(circle);
 
   const circle2 = new THREE.Mesh( geometry3, material3 );
   circle2.position.set(-0.55, 0.4, 1.3);
   circle2.rotation.set(0, -0.77, 0);
   circle2.name = "second_floor";
   scene.add( circle2 );
+  animatedObjects.push(circle2);
 
   const circle3 = new THREE.Mesh( geometry3, material3 );
   circle3.position.set(-0.55, 0.15, 1.3);
   circle3.rotation.set(0, -0.77, 0);
   circle3.name = "first_floor";
   scene.add( circle3 );
+  animatedObjects.push(circle3);
 
   const circle4 = new THREE.Mesh( geometry3, material3 );
   circle4.position.set(-2, 0.6, -1.7);
   circle4.name = "canteen";
   scene.add( circle4 );
+  animatedObjects.push(circle4);
 
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
@@ -460,12 +464,14 @@ function init() {
   close.visible = false;
   close.name = "close";
   scene.add(close);
+  animatedObjects.push(close);
 
   const close2 = new THREE.Mesh( geometry3, material3 );
   close2.position.set(-2, 0.95, -1.7);
   close2.visible = false;
   close2.name = "close2";
   scene.add(close2);
+  animatedObjects.push(close2);
 
   const cubeGeometry = new THREE.BoxGeometry(0.4, 0.4, 0.01);
   const cubeMaterial = new THREE.MeshBasicMaterial( { color: 0xbd8661 } );
@@ -539,8 +545,8 @@ function init() {
         });
         intersects[i].object.material.color.set( 0xff0000 );
         window.location.hash = "first_floor";
-        camera.position.set(-1, 0.5, 2.5);
-        camera.lookAt(0, 0.5);
+        camera.position.set(-1, 0.9, 3);
+        camera.lookAt(0, 0.9);
         close.visible = true;
         cube.visible = true;
         loadFont(text_first_floor, [-0.39, 0.6, 1.37], [0, -0.6, 0]);
@@ -551,8 +557,8 @@ function init() {
         });
         intersects[i].object.material.color.set( 0x00ff00 );
         window.location.hash = "second_floor";
-        camera.position.set(-1, 0.5, 2.5);
-        camera.lookAt(0, 0.5);
+        camera.position.set(-1, 0.9, 3);
+        camera.lookAt(0, 0.9);
         close.visible = true;
         cube.visible = true;
         loadFont(text_second_floor, [-0.39, 0.6, 1.37], [0, -0.6, 0]);
@@ -563,13 +569,15 @@ function init() {
         });
         intersects[i].object.material.color.set( 0x0000ff );
         window.location.hash = "third_floor";
-        camera.position.set(-1, 0.5, 2.5);
-        camera.lookAt(0, 0.5);
+        camera.position.set(-1, 0.9, 3);
+        camera.lookAt(0, 0.9);
         close.visible = true;
         cube.visible = true;
         loadFont(text_third_floor, [-0.39, 0.6, 1.37], [0, -0.6, 0]);
       }
       if (intersects[i].object.name == 'canteen') {
+        cube.visible = false;
+        close.visible = false;
         textVisible.forEach((txt) => {
           txt.visible = false;
         });
@@ -577,6 +585,7 @@ function init() {
         window.location.hash = "canteen";
         close2.visible = true;
         cube2.visible = true;
+        circle4.visible = false;
         loadFont(text_canteen, [-2.1, 0.85, -1.68], [0, 0, 0]);
       }
       if (intersects[i].object.name == 'close') {
@@ -594,6 +603,7 @@ function init() {
         intersects[i].object.material.color.set( 0xffff00 );
         cube2.visible = false;
         close2.visible = false;
+        circle4.visible = true;
         window.location.hash = "";
         textVisible.forEach((txt) => {
           txt.visible = false;
@@ -683,9 +693,11 @@ function animate(time) {
   // carAnimation.do_wp(scene.getObjectByName('car1'));
   // CTRL.handleUserInput(keycb, keyboard, camera, 0.1, keyboard[16], cameraLookAt, controls);
   controls.update(0.001);
-
   requestAnimationFrame(animate);
-  // renderer.outputEncoding = THREE.sRGBEncoding;
+  animatedObjects.forEach((obj) => {
+    obj.rotation.y += 0.015;
+  })
+  renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.render(scene, camera);
 
 }

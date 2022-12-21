@@ -1,3 +1,17 @@
+* { 
+  margin: 0; 
+  padding: 0; 
+}
+
+html, body { 
+  width:100%; 
+  height:100%; 
+}
+
+canvas {
+  display: block; 
+}
+
 /* The switch - the box around the slider */
 .switch {
     position: relative;
@@ -78,6 +92,6 @@ top:10%
 #textbutton{
     position: absolute;
     left: 23%;
-    top: 7%;
+    top: 12%;
     color: black;
 }
