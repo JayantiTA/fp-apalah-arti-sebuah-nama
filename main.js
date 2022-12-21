@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-
+import { FlyControls } from 'three/addons/controls/FlyControls.js';
 import { FBXLoader } from 'three/addons/loaders/FBXLoader.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import * as CTRL from './assets/js/control.js';
@@ -35,16 +35,20 @@ manager.onLoad = function ( ) {
 function init() {
   console.log('init');
 
-  const container = document.createElement('div');
-  document.body.appendChild(container);
+  // const container = document.createElement('div');
+  // document.body.appendChild(container);
 
-  camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 10);
+  camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 100);
   camera.position.set(10, 5, 1000);
   cameraLookAt = new THREE.Vector3(0, 0, 0);
   camera.lookAt(cameraLookAt.x, cameraLookAt.y, cameraLookAt.z);
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color( 0xbfe3dd );
+  let near = 0.01;
+  let far = 20;
+  scene.fog = new THREE.Fog(0xbfe3dd, near, far);
+
 
   const geometry = new THREE.PlaneGeometry( 7, 5 );
   const material = new THREE.MeshBasicMaterial( {color: 0xB2A290, side: THREE.DoubleSide} );
@@ -90,24 +94,13 @@ function init() {
       mesh = gltf.scene;
     }
 
-    // mesh.traverse( function ( node ) {
-
-    //   if ( node.isMesh ) {
-
-    //     node.castShadow = true;
-    //     node.receiveShadow = true;
-    //     node.material.metalness = 0; // undo this change if you apply an env map
-
-    //   }
-
-    // } );
-
     mesh.scale.set(scale[0], scale[1], scale[2]);    
     mesh.position.set(translation[0], translation[1], translation[2]);
     mesh.rotation.set(rotation[0], rotation[1], rotation[2]);
     mesh.castShadow = true;
     mesh.receiveShadow = true;
     mesh.name = name;
+
     scene.add(mesh);
 
   }
@@ -432,21 +425,25 @@ function init() {
     },
   );
 
-  renderer = new THREE.WebGLRenderer();
+  let canvas = document.getElementById('canvas');
+  renderer = new THREE.WebGLRenderer({ canvas: canvas});
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.shadowMap.enabled = true;
   renderer.outputEncoding = THREE.sRGBEncoding;
-  container.appendChild(renderer.domElement);
+  // container.appendChild(renderer.domElement);
 
-  controls = new OrbitControls(camera, renderer.domElement);
+  controls = new OrbitControls(camera, canvas);
   controls.target.set(0, 0, 0);
-  controls.maxDistance = 5;
+  controls.maxDistance = 10;
   controls.update();
 
   window.addEventListener('resize', onWindowResize, false);
   window.addEventListener("keydown", keyDown);
   window.addEventListener("keyup", keyUp);
+
+  let fogtoggler = document.getElementById('fogtoggler');
+  fogtoggler.addEventListener('click', toggleFog);
 
 }
 
@@ -466,6 +463,16 @@ function keyUp(event) {
 function keyDown(event) {
   keyboard[event.keyCode] = true;
   // console.log(event.keyCode);
+}
+
+function toggleFog(){
+  // chck if toggle is active
+  let toggle = document.getElementById('fogtoggler');
+  if (toggle.checked) {
+    scene.fog = new THREE.Fog(0xbfe3dd, 0.01, 20);
+  }else{
+    scene.fog = null;
+  }
 }
 
 function waitReady(){
@@ -494,7 +501,7 @@ function animate(time) {
 
   // carAnimation.do_wp(scene.getObjectByName('car1'));
   // CTRL.handleUserInput(keycb, keyboard, camera, 0.1, keyboard[16], cameraLookAt, controls);
-  // controls.update();
+  controls.update(0.001);
 
   requestAnimationFrame(animate);
   // renderer.outputEncoding = THREE.sRGBEncoding;
