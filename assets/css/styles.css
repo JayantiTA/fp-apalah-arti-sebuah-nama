@@ -95,3 +95,15 @@ top:10%
     top: 12%;
     color: black;
 }
+
+#button2 {
+  position:absolute;
+  left:10%;
+  top:20%
+  }
+  #textbutton2{
+      position: absolute;
+      left: 23%;
+      top: 22%;
+      color: black;
+  }
