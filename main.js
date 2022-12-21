@@ -426,8 +426,6 @@ function init() {
     },
   );
 
-  let canvas = document.getElementById('canvas');
-  renderer = new THREE.WebGLRenderer({ canvas: canvas});
   const geometry3 = new THREE.CircleGeometry( 0.05, 32 );
   const material3 = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
   const circle = new THREE.Mesh( geometry3, material3 );
@@ -609,6 +607,8 @@ function init() {
   window.addEventListener( 'mousemove', onMouseMove, false );
   window.addEventListener( 'click', onMouseClick, false );
 
+  let canvas = document.getElementById('canvas');
+  renderer = new THREE.WebGLRenderer({ canvas: canvas});
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.shadowMap.enabled = true;
