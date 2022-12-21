@@ -30,6 +30,21 @@
     </div>
   </div>
 
+  <audio id="myAudio">
+    <source src="assets/audio/bgmusic.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    let x = document.getElementById("myAudio"); 
+    
+    function playAudio() { 
+      x.play(); 
+    } 
+    
+    playAudio();
+    </script>
+
   <script src="assets/js/animation.js" type="module"></script>
   <script src="assets/js/control.js" type="module"></script>
   <script src="assets/js/object_maker.js" type="module"></script>
