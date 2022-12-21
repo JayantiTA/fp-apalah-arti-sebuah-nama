@@ -544,7 +544,6 @@ function init() {
           txt.visible = false;
         });
         intersects[i].object.material.color.set( 0xff0000 );
-        window.location.hash = "first_floor";
         camera.position.set(-1, 0.9, 3);
         camera.lookAt(0, 0.9);
         close.visible = true;
@@ -556,7 +555,6 @@ function init() {
           txt.visible = false;
         });
         intersects[i].object.material.color.set( 0x00ff00 );
-        window.location.hash = "second_floor";
         camera.position.set(-1, 0.9, 3);
         camera.lookAt(0, 0.9);
         close.visible = true;
@@ -568,7 +566,6 @@ function init() {
           txt.visible = false;
         });
         intersects[i].object.material.color.set( 0x0000ff );
-        window.location.hash = "third_floor";
         camera.position.set(-1, 0.9, 3);
         camera.lookAt(0, 0.9);
         close.visible = true;
@@ -582,7 +579,6 @@ function init() {
           txt.visible = false;
         });
         intersects[i].object.material.color.set( 0x00ffff );
-        window.location.hash = "canteen";
         close2.visible = true;
         cube2.visible = true;
         circle4.visible = false;
@@ -592,7 +588,6 @@ function init() {
         intersects[i].object.material.color.set( 0xffff00 );
         cube.visible = false;
         close.visible = false;
-        window.location.hash = "";
         textVisible.forEach((txt) => {
           txt.visible = false;
         });
@@ -604,7 +599,6 @@ function init() {
         cube2.visible = false;
         close2.visible = false;
         circle4.visible = true;
-        window.location.hash = "";
         textVisible.forEach((txt) => {
           txt.visible = false;
         });
