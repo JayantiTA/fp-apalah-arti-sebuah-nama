@@ -695,7 +695,12 @@ function animate(time) {
   controls.update(0.001);
   requestAnimationFrame(animate);
   animatedObjects.forEach((obj) => {
-    obj.rotation.y += 0.015;
+    if(!obj['original_y']){
+      obj['original_y'] = obj.position.y;
+    }
+    let adjustment = Math.sin(time / 1000 * Math.PI)*0.02;
+
+    obj.position.y = adjustment + obj['original_y'];
   })
   renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.render(scene, camera);
